@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Ground check
+        
         isGrounded = controller.isGrounded;
 
         if (isGrounded && velocity.y < 0)
@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
-        // 🎯 INPUT (FIXED - NO DRIFT)
+        
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
@@ -35,13 +35,13 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(move * speed * Time.deltaTime);
 
-        // 🎯 BLEND TREE FIX
+        
         Vector2 input = new Vector2(x, z);
         float moveAmount = Mathf.Clamp01(input.magnitude);
 
         animator.SetFloat("moveAmount", moveAmount, 0.1f, Time.deltaTime);
 
-        // Gravity
+        
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
